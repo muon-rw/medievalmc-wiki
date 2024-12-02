@@ -5,7 +5,6 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
     site: 'https://wiki.medievalmc.us',
-    base: '/medievalmc-wiki',
     integrations: [
         mdx(),
         tailwind(),
