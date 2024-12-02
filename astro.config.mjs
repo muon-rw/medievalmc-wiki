@@ -4,7 +4,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-    site: 'https://muon-rw.github.io',
+    site: 'https://wiki.medievalmc.us',
     base: '/medievalmc-wiki',
     integrations: [
         mdx(),
