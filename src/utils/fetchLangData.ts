@@ -59,6 +59,11 @@ function processText(text: string): string {
     return formatMinecraftText(text);
 }
 
+function cleanDescription(description: string): string {
+    // Remove the §nSubraces§r or §nSubclasses§r section and everything after it
+    return description.split(/§nSubraces§r|§nSubclasses§r/)[0].trim();
+}
+
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
 const MOD_CACHE_PATH = join(process.cwd(), 'src/data/cache/otherworld-origins');
@@ -150,7 +155,9 @@ export async function fetchLangData(): Promise<LangData> {
                     if (key.endsWith('.name')) {
                         processed.races[raceName].name = formatMinecraftText(value);
                     } else if (key.endsWith('.description')) {
-                        processed.races[raceName].description = formatMinecraftText(value);
+                        processed.races[raceName].description = formatMinecraftText(
+                            cleanDescription(value)
+                        );
                     }
                 }
             }
@@ -172,7 +179,9 @@ export async function fetchLangData(): Promise<LangData> {
                         if (key.endsWith('.name')) {
                             processed.classes[className].name = processText(value as string);
                         } else if (key.endsWith('.description')) {
-                            processed.classes[className].description = processText(value as string);
+                            processed.classes[className].description = formatMinecraftText(
+                                cleanDescription(value)
+                            );
                         }
                     }
                 }
